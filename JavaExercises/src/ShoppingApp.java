@@ -47,7 +47,7 @@ public class ShoppingApp {
         System.out.println("You have to pay all of products: " + sum + "$");
 
 
-
+        double a = input.nextDouble();
 
     }
 
