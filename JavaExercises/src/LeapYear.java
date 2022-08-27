@@ -9,6 +9,7 @@ public class LeapYear {
         Scanner input = new Scanner(System.in);
 
 
+
         System.out.println("Welcome to the Leap Year Program...");
 
         System.out.print("Please enter a year: ");
