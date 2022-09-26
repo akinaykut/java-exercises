@@ -23,12 +23,15 @@ public class MineSweeper {
         Scanner input = new Scanner(System.in);
         int row; int column;
 
-
+        this.copyField();
         this.addMines();
         this.showMines();
-
+        this.showCopyMinesField();
         while(true) {
-
+            if(isWinner()) {
+                System.out.println("You win.");
+                break;
+            }
             System.out.print("Please enter row: ");
             row = input.nextInt();
 
@@ -41,7 +44,7 @@ public class MineSweeper {
 
             }else {
                 this.countMines(row, column);
-                this.showMines();
+                this.showCopyMinesField();
             }
 
         }
@@ -88,9 +91,19 @@ public class MineSweeper {
             }
             System.out.println();
         }
-        System.out.println("-------- MineField -----------");
+        System.out.println("------------------------------");
     }
+    void showCopyMinesField() {
+        System.out.println("-------- MineField -----------");
 
+        for (String[] i : this.copyMineField) {
+            for (String u : i) {
+                System.out.print(u);
+            }
+            System.out.println();
+        }
+        System.out.println("------------------------------");
+    }
     void countMines(int row, int column) {
         int count = 0;
 
@@ -100,9 +113,9 @@ public class MineSweeper {
         int userColumnEnd= column + 1;
 
         if(row == 0) userRowStart = 0;
-        if(row == this.row) userRowEnd = row;
+        if(row == this.row-1) userRowEnd = row;
         if(column == 0) userColumnStart = 0;
-        if(column == this.column) userColumnEnd = column;
+        if(column == this.column-1) userColumnEnd = column;
 
 
 
@@ -120,20 +133,33 @@ public class MineSweeper {
 
         }
 
-        this.mineField[row][column] = String.valueOf(" " + count + " ");
+        this.copyMineField[row][column] = String.valueOf(" " + count + " ");
 
 
     }
 
     void copyField() {
 
+        this.copyMineField = new String[this.row][this.column];
         for(int i = 0; i<this.row; i++) {
             for(int j = 0; j< this.column; j++) {
-                this.copyMineField[i][j] = this.mineField[i][j];
+                this.copyMineField[i][j] = " - ";
             }
         }
 
     }
 
+    boolean isWinner() {
+        int count = 0;
+        for(int i = 0;  i<this.row; i++) {
+            for(int j = 0; j< this.column; j++) {
+                if(this.copyMineField[i][j].equals(" - ")) {
+                    count++;
+                }
+            }
+        }
+        if(count == this.mines) return true;
+        else return false;
+    }
 
 }
