@@ -5,6 +5,9 @@ public class Main {
 
         System.out.println("Hello world.");
 
+        MineSweeper deneme = new MineSweeper(5,5);
+
+        deneme.run();
 
 
     }
